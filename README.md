@@ -78,8 +78,9 @@ bash <(curl -fsSL https://raw.githubusercontent.com/JiamiDog/Get-Bot/main/instal
 | Ubuntu | 20.04 | ✅ | |
 | Ubuntu | 22.04 | ✅ | |
 | Ubuntu | 24.04 | ✅ | |
+| Ubuntu | 26.04 | ✅ | |
 
-v2.2.0 在 Debian 12 和 CentOS Stream 9（SELinux Enforcing、firewalld 开启）上跑过完整安装、公网证书签发、客户端实连和卸载；其余系统的 ✅ 是 v2.1.0 时的结果，v2.2.0 没有重新跑。
+v3.0.3 用上面那条一行安装在 Debian 12（512M 和 1G）、CentOS Stream 9（SELinux Enforcing、firewalld 开启）、Ubuntu 22.04 / 24.04 / 26.04 上跑过完整安装、公网证书签发、助手对话和卸载（v2.2.0 另做过客户端实连）；Debian 10/11、Ubuntu 18.04/20.04 的 ✅ 是 v2.1.0 时的结果，之后没有重跑。
 
 ## 客户端
 

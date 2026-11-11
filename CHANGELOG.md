@@ -7,6 +7,7 @@
 
 ### 验证范围
 - 真机一行安装（Vultr 东京 vc2-1c-1gb 全新机，照 README 那条 `bash <(curl …)` 在 tty 里跑）：Debian 12 1G 17/17——装机 53 秒、助手答「证书还剩 89 天」、ufw 仍开且放行 443；CentOS Stream 9 1G 18/18——装机 116 秒、助手答「证书还剩 89 天」、firewalld 仍开且放行 https、SELinux 仍 Enforcing。两台都自带 /swapfile：脚本没另建、没登记、卸载没动。CentOS 装依赖阶段 used 峰值 917MB / available 最低 33MB（总 951MB，有 swap 兜底），Debian 同阶段 312MB
+- 真机一行安装 Ubuntu（同上机型）：22.04 17/17（81 秒；第一遍约 7 分钟装成但超了测试上限，重跑未复现）、24.04 17/17（85 秒）、26.04 17/17（78 秒）；三台 ufw 仍开且放行 443，自带 swap 未动
 
 ## v3.0.2 (2026-11-11)
 
