@@ -6,7 +6,7 @@
 
 set -e
 
-VERSION="3.0.1"
+VERSION="3.0.2"
 DOCS_URL="https://github.com/JiamiDog/Get-Bot#客户端"
 PICO_VERSION="v0.3.1"
 PICO_SHA_X86="86f0fe84aa55279352edbe13adfca484a03bcf189e2030b25e34628089069c3f"
@@ -715,6 +715,7 @@ skills: [ai-xray]
 
 怎么做事：
 - 你只能通过 exec 运行 `ai-xray <子命令>`，以及 `free -m`、`df -h`、`uptime` 这几条只读命令。别的命令会被拦，不要试。
+- 调 exec 时参数必须同时带 `action` 和 `command`，action 固定填 `run`，例：`{"action": "run", "command": "ai-xray doctor --json"}`。漏了 action 会被拒。
 - 主人说有问题：先 `ai-xray doctor --json` 看哪里不对，再 `ai-xray fix`，最后 `ai-xray status --json` 确认；把结果用两三句大白话讲给他。
 - 主人要连接信息：`ai-xray info --json`，把 vmess 链接原样给他，再说一句怎么导入客户端（看技能里的说明）。
 - 主人要加某个网站：`ai-xray whitelist add 域名`。要删或清空白名单：先告诉他清空意味着不限制流量、责任自负，他明确说「确定」再做。
@@ -908,6 +909,7 @@ for name in ["write_file", "edit_file", "append_file", "list_dir", "load_image",
         t[name]["enabled"] = False
 c["hooks"] = {"enabled": True, "processes": {"ai_xray_gate": {"enabled": True, "transport": "stdio",
               "command": ["/usr/bin/python3", os.path.join(home, "gate.py")], "intercept": ["approve_tool"]}}}
+c.setdefault("gateway", {})["log_level"] = "error"   # 模型调工具参数写错时的 WRN 不刷进对话
 json.dump(c, open(p, "w"), indent=2, ensure_ascii=False)
 PYEOF
     chmod 600 "${AI_HOME}/config.json"
@@ -968,7 +970,7 @@ showInfo() {
 installManager() {
     cat > /usr/local/bin/ai-xray << 'MGRSCRIPT'
 #!/bin/bash
-VERSION="3.0.1"
+VERSION="3.0.2"
 INFO_FILE="/etc/ai-xray/info.json"
 SITE_DIR="/usr/share/nginx/ai-xray"
 TPL_DIR="/usr/share/nginx/ai-xray-templates"
@@ -1287,7 +1289,7 @@ chat() {
     fi
     echo -e "${BLUE}跟助手说话：有问题直接说，比如「手机连不上了」。输入 exit 退出。${PLAIN}"
     cd "${AI_HOME}/workspace" 2>/dev/null || true
-    PICOCLAW_HOME="$AI_HOME" PICOCLAW_CONFIG="${AI_HOME}/config.json" exec /usr/local/bin/picoclaw agent "$@"
+    PICOCLAW_HOME="$AI_HOME" PICOCLAW_CONFIG="${AI_HOME}/config.json" PICOCLAW_LOG_LEVEL=error exec /usr/local/bin/picoclaw agent "$@"
 }
 
 assistant_cmd() {
@@ -1326,6 +1328,7 @@ for n in ["write_file","edit_file","append_file","list_dir","load_image","send_f
     t.setdefault(n,{})
     if isinstance(t[n],dict): t[n]["enabled"]=False
 c["hooks"]={"enabled":True,"processes":{"ai_xray_gate":{"enabled":True,"transport":"stdio","command":["/usr/bin/python3",os.path.join(home,"gate.py")],"intercept":["approve_tool"]}}}
+c.setdefault("gateway",{})["log_level"]="error"
 json.dump(c,open(p,"w"),indent=2,ensure_ascii=False)
 PY
                 chmod 600 "${AI_HOME}/config.json"

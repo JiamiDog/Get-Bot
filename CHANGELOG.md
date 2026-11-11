@@ -1,5 +1,11 @@
 # Changelog
 
+## v3.0.2 (2026-11-11)
+
+### 对话框更干净
+- picoclaw 日志级别调到 error（config `gateway.log_level`，`ai-xray chat` 再带 `PICOCLAW_LOG_LEVEL=error`）：模型调工具参数写错时的 WRN 不再刷进对话
+- AGENT.md 明说调 exec 必须同时带 `action: "run"` 和 `command`（v3.0.1 真机上模型头两次漏了 action，第三次才对）
+
 ## v3.0.1 (2026-11-11)
 
 ### 修复
