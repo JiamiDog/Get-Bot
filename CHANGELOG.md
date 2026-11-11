@@ -6,6 +6,9 @@
 - picoclaw 日志级别调到 error（config `gateway.log_level`，`ai-xray chat` 再带 `PICOCLAW_LOG_LEVEL=error`）：模型调工具参数写错时的 WRN 不再刷进对话
 - AGENT.md 明说调 exec 必须同时带 `action: "run"` 和 `command`（v3.0.1 真机上模型头两次漏了 action，第三次才对）
 
+### 验证范围
+- 真机（Vultr 新泽西 512M Debian 12 全新机，照 README 那条 `bash <(curl …)` 在 tty 里跑，pty 驱动按提示作答）两遍：第二遍 15/15——装机 57 秒，自动进对话框，问「服务器正常吗？证书还剩几天」3 秒答对（剩 89 天、续期已登记），对话里 0 行 WRN/ERR，exit 退出码 0；装机峰值 used 179MB；doctor 全绿、公网 https 200、`info --json` 有 vmess、`.security.yml` 600、终端记录和对话历史里 0 处钥匙样式；卸载后六个受管路径全删（第一遍产品侧 14/14 同样全过，唯一失败项是测试驱动自己的收尾竞态）
+
 ## v3.0.1 (2026-11-11)
 
 ### 修复
