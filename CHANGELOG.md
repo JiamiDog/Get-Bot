@@ -5,6 +5,9 @@
 ### 回答更到点
 - AGENT.md 加一条：主人问证书/到期，用 `status --json` 的 `cert_days` 答具体天数，只说「正常」不算答（1G Debian 真机上模型答了「一切正常」却没说天数）
 
+### 验证范围
+- 真机一行安装（Vultr 东京 vc2-1c-1gb 全新机，照 README 那条 `bash <(curl …)` 在 tty 里跑）：Debian 12 1G 17/17——装机 53 秒、助手答「证书还剩 89 天」、ufw 仍开且放行 443；CentOS Stream 9 1G 18/18——装机 116 秒、助手答「证书还剩 89 天」、firewalld 仍开且放行 https、SELinux 仍 Enforcing。两台都自带 /swapfile：脚本没另建、没登记、卸载没动。CentOS 装依赖阶段 used 峰值 917MB / available 最低 33MB（总 951MB，有 swap 兜底），Debian 同阶段 312MB
+
 ## v3.0.2 (2026-11-11)
 
 ### 对话框更干净
