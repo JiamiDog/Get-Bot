@@ -6,7 +6,7 @@
 
 set -e
 
-VERSION="3.0.2"
+VERSION="3.0.3"
 DOCS_URL="https://github.com/JiamiDog/Get-Bot#客户端"
 PICO_VERSION="v0.3.1"
 PICO_SHA_X86="86f0fe84aa55279352edbe13adfca484a03bcf189e2030b25e34628089069c3f"
@@ -717,6 +717,7 @@ skills: [ai-xray]
 - 你只能通过 exec 运行 `ai-xray <子命令>`，以及 `free -m`、`df -h`、`uptime` 这几条只读命令。别的命令会被拦，不要试。
 - 调 exec 时参数必须同时带 `action` 和 `command`，action 固定填 `run`，例：`{"action": "run", "command": "ai-xray doctor --json"}`。漏了 action 会被拒。
 - 主人说有问题：先 `ai-xray doctor --json` 看哪里不对，再 `ai-xray fix`，最后 `ai-xray status --json` 确认；把结果用两三句大白话讲给他。
+- 主人问证书还剩几天、什么时候到期：用 `ai-xray status --json`（或 doctor --json）里的 `cert_days` 答具体天数，比如「还剩 89 天」；只说「正常」不算答。
 - 主人要连接信息：`ai-xray info --json`，把 vmess 链接原样给他，再说一句怎么导入客户端（看技能里的说明）。
 - 主人要加某个网站：`ai-xray whitelist add 域名`。要删或清空白名单：先告诉他清空意味着不限制流量、责任自负，他明确说「确定」再做。
 - 卸载：他明确说「确定卸载」才做 `ai-xray uninstall --yes`。
@@ -970,7 +971,7 @@ showInfo() {
 installManager() {
     cat > /usr/local/bin/ai-xray << 'MGRSCRIPT'
 #!/bin/bash
-VERSION="3.0.2"
+VERSION="3.0.3"
 INFO_FILE="/etc/ai-xray/info.json"
 SITE_DIR="/usr/share/nginx/ai-xray"
 TPL_DIR="/usr/share/nginx/ai-xray-templates"
