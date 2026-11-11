@@ -144,7 +144,7 @@ ai-xray
 
 | 商家 | 特点 | 链接 |
 |------|------|------|
-| 搬瓦工 DC8ZNET | CN2 GIA，中国直连最快 | [bwh81.net](https://bwh81.net/aff.php?aff=20308) |
+| 搬瓦工 DC8ZNET | CN2 GIA，中国直连最快 | [bandwagonhost.cloud](https://bandwagonhost.cloud) |
 | DMIT | 香港/洛杉矶，大带宽 | [dmit.io](https://www.dmit.io/aff.php?aff=3138) |
 | Vultr | 按小时计费，随开随关 | [vultr.com](https://www.vultr.com/?ref=8910412) |
 
