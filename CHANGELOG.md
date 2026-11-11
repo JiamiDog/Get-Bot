@@ -1,5 +1,11 @@
 # Changelog
 
+## v3.0.1 (2026-11-11)
+
+### 修复
+- 生成 WebSocket 路径用的 `tr < /dev/urandom | fold | head -n 1` 靠 SIGPIPE 收尾；在 SIGPIPE 被忽略的环境里（例如由 Python 的 pty 拉起、某些面板和自动化工具）GNU fold 写出错不检查，会对着无限输入永远不结束，安装卡在「生成配置...」。改成有限输入 `head -c 512 /dev/urandom | tr -dc | head -c N`，不再依赖信号
+- 复现：512M Debian 12 上照 README 一行安装，由 pty 驱动作答，卡死 420 秒以上；`--yes --json` 经 ssh 直跑不受影响（SIGPIPE 默认）
+
 ## v3.0.0 (2026-11-11)
 
 ### AI 助手：出了问题一句话修

@@ -6,7 +6,7 @@
 
 set -e
 
-VERSION="3.0.0"
+VERSION="3.0.1"
 DOCS_URL="https://github.com/JiamiDog/Get-Bot#客户端"
 PICO_VERSION="v0.3.1"
 PICO_SHA_X86="86f0fe84aa55279352edbe13adfca484a03bcf189e2030b25e34628089069c3f"
@@ -339,7 +339,8 @@ generateConfig() {
     done
     UUID=$(cat /proc/sys/kernel/random/uuid)
     len=$(shuf -i5-12 -n1)
-    ws=$(tr -dc 'a-zA-Z0-9' < /dev/urandom | fold -w "$len" | head -n 1)
+    # 有限输入，不靠 SIGPIPE 收尾（SIGPIPE 被忽略的环境里 fold 会对着无限流永远不结束）
+    ws=$(head -c 512 /dev/urandom | tr -dc 'a-zA-Z0-9' | head -c "$len")
     WS_PATH="/$ws"
 
     mkdir -p /usr/local/etc/xray
@@ -967,7 +968,7 @@ showInfo() {
 installManager() {
     cat > /usr/local/bin/ai-xray << 'MGRSCRIPT'
 #!/bin/bash
-VERSION="3.0.0"
+VERSION="3.0.1"
 INFO_FILE="/etc/ai-xray/info.json"
 SITE_DIR="/usr/share/nginx/ai-xray"
 TPL_DIR="/usr/share/nginx/ai-xray-templates"
