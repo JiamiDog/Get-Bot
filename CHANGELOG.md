@@ -6,6 +6,11 @@
 - 生成 WebSocket 路径用的 `tr < /dev/urandom | fold | head -n 1` 靠 SIGPIPE 收尾；在 SIGPIPE 被忽略的环境里（例如由 Python 的 pty 拉起、某些面板和自动化工具）GNU fold 写出错不检查，会对着无限输入永远不结束，安装卡在「生成配置...」。改成有限输入 `head -c 512 /dev/urandom | tr -dc | head -c N`，不再依赖信号
 - 复现：512M Debian 12 上照 README 一行安装，由 pty 驱动作答，卡死 420 秒以上；`--yes --json` 经 ssh 直跑不受影响（SIGPIPE 默认）
 
+### 验证范围
+- 真机（Vultr 新泽西 512M Debian 12 全新机，照 README 那条 `bash <(curl …)` 在 tty 里跑，pty 驱动按提示作答、像真终端一样应答光标查询）：14/14——装机 57 秒，自动进对话框，问「服务器正常吗？证书还剩几天」6 秒答对（剩 89 天、续期已登记），exit 退出码 0；装机峰值 used 171MB；doctor 全绿、公网 https 200、`info --json` 有 vmess、`.security.yml` 600、终端记录和对话历史里 0 处钥匙样式；卸载后六个受管路径全删
+- 已知瑕疵：回答前 picoclaw 在终端打了两行 `WRN … missing required property "action" tool=exec`（模型头两次调 exec 漏了 action），答案不受影响
+- picoclaw 交互模式用的 readline 画提示符前要终端应答 `ESC[6n`，不答的终端（某些面板网页控制台）提示符不出现；`ai-xray chat -m` 不受影响
+
 ## v3.0.0 (2026-11-11)
 
 ### AI 助手：出了问题一句话修
