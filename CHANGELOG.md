@@ -10,6 +10,7 @@
 ### 验证范围
 - 真机（Vultr 东京 vc2-1c-1gb Debian 12 全新机，改过的脚本 scp 上去 `bash install.sh --yes`，推送之前）：52 秒装成 v3.0.4；whitelist.txt 383 行、xray 路由 383 条、`ai-xray` 里恢复默认用的列表 383 个、占位符 0 处；`whitelist add example.org` 后 384 条，`whitelist reset` 回 383 条并提示「383 个根域名」；doctor all_ok，公网 https 200
 - 本机 Xray 26.11.9 客户端走隧道（同一台机）：youtube.com 200（真实页面 875KB，标题 YouTube）、youtu.be 303、x.com 200、amazon.com 202、paypal.com 302、shopify.com 200、linkedin.com 200、wikipedia.org 200、bing.com 200、tiktok.com 200、canva.com 200、dhl.com 302、chatgpt.com 200、business.facebook.com 302、ads.google.com 302；ebay.com 403（直连也 403，站点挡脚本请求）；reddit.com 走隧道 403、直连 200（Reddit 挡机房 IP，不是白名单的事）；名单外的 baidu.com、ifconfig.me 走隧道连不上、直连正常；断开 5 秒重连仍通；服务器 nginx 日志里本机 25 次连接落在 WS 路径上。机器测完销毁
+- 推送后再开一台（同机型 Debian 12 全新机）照 README 那条一行安装 `--yes`：52 秒装成 v3.0.4，白名单 383 条、路由 383 条、`reset` 提示 383、doctor all_ok；本机走隧道 youtube.com 200、x.com 200、amazon.com 200、paypal.com 302、google.com 200，名单外的 baidu.com 连不上。机器测完销毁
 
 ## v3.0.3 (2026-11-11)
 
