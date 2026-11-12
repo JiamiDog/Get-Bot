@@ -6,7 +6,7 @@
 
 set -e
 
-VERSION="3.0.3"
+VERSION="3.0.4"
 DOCS_URL="https://github.com/JiamiDog/Get-Bot#客户端"
 PICO_VERSION="v0.3.1"
 PICO_SHA_X86="86f0fe84aa55279352edbe13adfca484a03bcf189e2030b25e34628089069c3f"
@@ -14,6 +14,51 @@ PICO_SHA_ARM="e78ab0de05d000698ff8b32458e71cb3134e52e9eaf540e3323a72e9914de060"
 AI_MODEL="deepseek-chat"
 AI_PROVIDER="deepseek"
 AI_API_BASE="https://api.deepseek.com/v1"
+
+#=== 出厂白名单：跨境出海必备的根域名 ===========================================
+# 一行一组、空格分隔；匹配含全部子域名。加减域名只改这里：安装时写进 whitelist.txt、
+# 写进 xray 路由、也写进 ai-xray 的「恢复默认」。改完跑一遍 bash -n 和真机安装。
+DEFAULT_DOMAINS="$(sed -e 's/#.*//' <<'DOMAINS' | tr -s ' \n' ' ' | sed -e 's/^ //' -e 's/ $//'
+# 谷歌与 YouTube
+google.com gstatic.com googleapis.com googleusercontent.com googletagmanager.com google-analytics.com googleadservices.com googlesyndication.com doubleclick.net googlevideo.com ggpht.com gvt1.com gvt2.com gmail.com youtube.com youtu.be ytimg.com withgoogle.com blogger.com blogspot.com goo.gl g.co recaptcha.net firebaseio.com firebaseapp.com appspot.com web.app admob.com android.com
+# 微软与必应
+microsoft.com bing.com bing.net live.com outlook.com hotmail.com office.com office365.com microsoftonline.com msftauth.net msauth.net msecnd.net windows.net windows.com azure.com azureedge.net msn.com skype.com onedrive.com sharepoint.com visualstudio.com clarity.ms
+# 苹果
+apple.com icloud.com mzstatic.com cdn-apple.com apple-dns.net me.com
+# Meta 全家
+facebook.com fb.com fbcdn.net facebook.net fbsbx.com meta.com messenger.com instagram.com cdninstagram.com threads.net whatsapp.com whatsapp.net
+# TikTok 与字节
+tiktok.com tiktokv.com tiktokcdn.com tiktokcdn-us.com tiktokglobalshop.com byteoversea.com ibyteimg.com ttwstatic.com musical.ly bytedance.com capcut.com
+# X
+x.com twitter.com twimg.com t.co
+# 其他社媒与社区
+linkedin.com licdn.com pinterest.com pinimg.com reddit.com redd.it redditstatic.com redditmedia.com snapchat.com snap.com sc-cdn.net tumblr.com quora.com medium.com substack.com vimeo.com vimeocdn.com twitch.tv ttvnw.net discord.com discordapp.com discord.gg telegram.org telegram.me t.me telesco.pe line.me line-apps.com naver.com kakao.com viber.com signal.org flickr.com imgur.com giphy.com tenor.com
+# 亚马逊
+amazon.com amazon.ca amazon.com.mx amazon.co.uk amazon.de amazon.fr amazon.it amazon.es amazon.nl amazon.se amazon.pl amazon.com.be amazon.co.jp amazon.in amazon.sg amazon.com.au amazon.ae amazon.sa amazon.com.br amazon.com.tr amazon.eg media-amazon.com ssl-images-amazon.com images-amazon.com amazonaws.com awsstatic.com amazon-adsystem.com amazontrust.com a2z.com amzn.to amzn.com
+# 其他电商平台
+ebay.com ebay.co.uk ebay.de ebay.com.au ebay.ca ebay.fr ebay.it ebay.es ebaystatic.com ebayimg.com ebaydesc.com ebayrtm.com etsy.com etsystatic.com walmart.com walmartimages.com target.com bestbuy.com homedepot.com wayfair.com costco.com newegg.com overstock.com temu.com shein.com wish.com mercadolibre.com mercadolivre.com.br mercadopago.com allegro.pl bol.com otto.de cdiscount.com fnac.com rakuten.co.jp rakuten.com zalando.com asos.com ozon.ru wildberries.ru coupang.com flipkart.com noon.com jumia.com lazada.com shopee.com tokopedia.com qoo10.jp
+# 独立站与建站
+shopify.com myshopify.com shopifycdn.com shopifysvc.com shopify.dev shop.app bigcommerce.com woocommerce.com wix.com wixstatic.com squarespace.com squarespace-cdn.com webflow.com webflow.io wordpress.com wordpress.org wp.com w.org gravatar.com godaddy.com namecheap.com name.com dynadot.com porkbun.com cloudflare.com cloudflareinsights.com vercel.com vercel.app netlify.com netlify.app github.com githubusercontent.com githubassets.com github.io gitlab.com npmjs.com jsdelivr.net unpkg.com bootstrapcdn.com jquery.com fontawesome.com typekit.net
+# 收款与支付
+paypal.com paypalobjects.com stripe.com stripe.network payoneer.com wise.com airwallex.com worldfirst.com adyen.com klarna.com afterpay.com affirm.com squareup.com braintreegateway.com 2checkout.com coinbase.com
+# 广告、联盟与分析
+criteo.com taboola.com outbrain.com appsflyer.com adjust.com branch.io impact.com cj.com shareasale.com awin.com linksynergy.com partnerize.com clickbank.com semrush.com ahrefs.com similarweb.com moz.com hotjar.com mixpanel.com segment.com amplitude.com optimizely.com
+# 营销、客服与评价
+mailchimp.com klaviyo.com sendgrid.com hubspot.com hsforms.com brevo.com omnisend.com privy.com gorgias.com zendesk.com zdassets.com intercom.com intercomcdn.com freshdesk.com tidio.com crisp.chat typeform.com surveymonkey.com trustpilot.com yotpo.com judge.me loox.io
+# 物流与履约
+dhl.com fedex.com ups.com usps.com 17track.net aftership.com shipstation.com easyship.com goshippo.com printful.com printify.com
+# 办公与协作
+notion.so notion.site slack.com slack-edge.com zoom.us canva.com figma.com dropbox.com box.com trello.com atlassian.com asana.com airtable.com calendly.com docusign.com grammarly.com deepl.com miro.com loom.com evernote.com zoho.com
+# AI 工具
+openai.com chatgpt.com oaistatic.com oaiusercontent.com anthropic.com claude.ai perplexity.ai midjourney.com x.ai grok.com huggingface.co replicate.com elevenlabs.io runwayml.com stability.ai
+# 资讯、参考与接单
+wikipedia.org wikimedia.org stackoverflow.com stackexchange.com producthunt.com techcrunch.com bbc.com bbc.co.uk nytimes.com reuters.com bloomberg.com wsj.com cnn.com theguardian.com forbes.com duckduckgo.com yahoo.com yahoo.co.jp archive.org upwork.com fiverr.com freelancer.com
+# CDN 与基础设施
+cloudfront.net akamaihd.net akamaized.net akamai.net fastly.net fastlylb.net digitaloceanspaces.com digitalocean.com vultr.com linode.com hcaptcha.com sentry.io imgix.net
+DOMAINS
+)"
+# xray 路由用的 JSON 数组："domain:a","domain:b"
+domainJson() { local d out=""; for d in $DEFAULT_DOMAINS; do out+="\"domain:${d}\","; done; echo "${out%,}"; }
 
 #=== 颜色 ===================================================================
 RED="\033[31m"; GREEN="\033[32m"; YELLOW="\033[33m"
@@ -378,7 +423,7 @@ generateConfig() {
     "rules": [
       {
         "type": "field",
-        "domain": ["domain:google.com","domain:gstatic.com","domain:googleapis.com","domain:googleusercontent.com","domain:googletagmanager.com","domain:doubleclick.net","domain:googlesyndication.com","domain:facebook.com","domain:fbcdn.net","domain:facebook.net","domain:instagram.com","domain:tiktok.com","domain:tiktokcdn.com","domain:tiktokcdn-us.com","domain:byteoversea.com","domain:ibyteimg.com","domain:ttwstatic.com","domain:x.com","domain:twimg.com","domain:twitter.com","domain:t.co","domain:pinterest.com","domain:pinimg.com","domain:openai.com","domain:chatgpt.com","domain:oaistatic.com","domain:oaiusercontent.com"],
+        "domain": [$(domainJson)],
         "outboundTag": "direct"
       },
       {
@@ -563,35 +608,8 @@ TPL
 
 #=== 10. 白名单 + TOS ========================================================
 setupWhitelist() {
-    cat > /usr/local/etc/xray/whitelist.txt << 'WLIST'
-google.com
-gstatic.com
-googleapis.com
-googleusercontent.com
-googletagmanager.com
-doubleclick.net
-googlesyndication.com
-facebook.com
-fbcdn.net
-facebook.net
-instagram.com
-tiktok.com
-tiktokcdn.com
-tiktokcdn-us.com
-byteoversea.com
-ibyteimg.com
-ttwstatic.com
-x.com
-twimg.com
-twitter.com
-t.co
-pinterest.com
-pinimg.com
-openai.com
-chatgpt.com
-oaistatic.com
-oaiusercontent.com
-WLIST
+    echo "$DEFAULT_DOMAINS" | tr ' ' '
+' > /usr/local/etc/xray/whitelist.txt
 
     cat > /usr/local/etc/xray/TOS.txt << 'TOSEOF'
 TERMS OF SERVICE — AI-Xray Cross-border Accelerator
@@ -768,7 +786,7 @@ description: AI-Xray 服务器的诊断、修复、白名单、证书、连接�
   [STEP] 2 把 vmess 字段整行给主人 告诉他 手机装 Shadowrocket 或 v2rayNG 电脑装 v2rayN 复制这行从剪贴板导入 然后开连接 打开 x.com 试
 
 ::MODULE{WHITELIST|title:白名单}
-  [STEP] 1 主人要开某个网站 先 ai-xray whitelist list 看在不在 不在就 ai-xray whitelist add 主域名 比如 shopify.com 不要带 https 和路径
+  [STEP] 1 主人要开某个网站 先 ai-xray whitelist list 看在不在 不在就 ai-xray whitelist add 主域名 比如 example.com 不要带 https 和路径
   [STEP] 2 主人要删某个 ai-xray whitelist remove 域名
   [STEP] 3 主人要全开 告诉他 清空白名单后这台机器不再限制流量 后果自负 他回 确定 再跑 ai-xray whitelist clear --yes
   [STEP] 4 主人想恢复默认 ai-xray whitelist reset
@@ -962,7 +980,7 @@ showInfo() {
         echo -e "  AI 助手：   ${BLUE}ai-xray chat${PLAIN}（出了问题跟它说一句）"
     fi
     echo ""
-    echo -e "  ${YELLOW}默认已启用跨境平台白名单（6个平台）${PLAIN}"
+    echo -e "  ${YELLOW}默认已启用跨境出海白名单（$(wc -w <<< "$DEFAULT_DOMAINS") 个根域名：谷歌与 YouTube、Meta、TikTok、X、亚马逊、eBay、Shopify、PayPal 等）${PLAIN}"
     echo -e "  ${YELLOW}输入 ai-xray 进入管理菜单修改白名单${PLAIN}"
     echo -e "${GREEN}========================================${PLAIN}"
 }
@@ -971,7 +989,7 @@ showInfo() {
 installManager() {
     cat > /usr/local/bin/ai-xray << 'MGRSCRIPT'
 #!/bin/bash
-VERSION="3.0.3"
+VERSION="3.0.4"
 INFO_FILE="/etc/ai-xray/info.json"
 SITE_DIR="/usr/share/nginx/ai-xray"
 TPL_DIR="/usr/share/nginx/ai-xray-templates"
@@ -987,7 +1005,7 @@ AI_TPL="/etc/ai-xray/assistant-template"
 AI_MODEL="deepseek-chat"
 AI_PROVIDER="deepseek"
 AI_API_BASE="https://api.deepseek.com/v1"
-DEFAULT_DOMAINS="google.com gstatic.com googleapis.com googleusercontent.com googletagmanager.com doubleclick.net googlesyndication.com facebook.com fbcdn.net facebook.net instagram.com tiktok.com tiktokcdn.com tiktokcdn-us.com byteoversea.com ibyteimg.com ttwstatic.com x.com twimg.com twitter.com t.co pinterest.com pinimg.com openai.com chatgpt.com oaistatic.com oaiusercontent.com"
+DEFAULT_DOMAINS="__DEFAULT_DOMAINS__"
 
 RED="\033[31m"; GREEN="\033[32m"; YELLOW="\033[33m"; BLUE="\033[36m"; PLAIN="\033[0m"
 colorEcho() { echo -e "${1}${*:2}${PLAIN}"; }
@@ -1407,7 +1425,7 @@ valid_domain() {
 
 wl_add() {
     local d; d=$(normalize_domain "$1")
-    valid_domain "$d" || { colorEcho "$RED" "域名格式不对，只要主域名，例如 shopify.com"; return 1; }
+    valid_domain "$d" || { colorEcho "$RED" "域名格式不对，只要主域名，例如 example.com"; return 1; }
     grep -qxF "$d" "$WHITELIST" 2>/dev/null && { colorEcho "$YELLOW" "${d} 已在白名单里"; return 0; }
     echo "$d" >> "$WHITELIST"
     if rebuild_routing; then colorEcho "$GREEN" "✓ 已添加 ${d}"; else
@@ -1419,7 +1437,7 @@ wl_remove() {
     grep -vxF "$d" "$WHITELIST" > "${WHITELIST}.tmp" && mv "${WHITELIST}.tmp" "$WHITELIST"
     rebuild_routing && colorEcho "$GREEN" "✓ 已删除 ${d}"
 }
-wl_reset() { echo "$DEFAULT_DOMAINS" | tr ' ' '\n' > "$WHITELIST"; rebuild_routing && colorEcho "$GREEN" "✓ 已恢复默认白名单（6 个平台）"; }
+wl_reset() { echo "$DEFAULT_DOMAINS" | tr ' ' '\n' > "$WHITELIST"; rebuild_routing && colorEcho "$GREEN" "✓ 已恢复默认白名单（$(wc -w <<< "$DEFAULT_DOMAINS") 个根域名）"; }
 wl_clear() { : > "$WHITELIST"; rebuild_routing && colorEcho "$GREEN" "✓ 已清空白名单：现在不限制流量"; }
 wl_list() { if [[ -s "$WHITELIST" ]]; then nl -w2 -s'. ' "$WHITELIST"; else echo "(空 — 不限制流量)"; fi; }
 
@@ -1447,13 +1465,13 @@ whitelist_menu() {
         echo ""
         read -r -p "请选择: " wl_choice
         case $wl_choice in
-            a) read -r -p "请输入域名（例如 shopify.com）: " nd; [[ -n "$nd" ]] && wl_add "$nd" ;;
+            a) read -r -p "请输入域名（例如 example.com）: " nd; [[ -n "$nd" ]] && wl_add "$nd" ;;
             d) read -r -p "请输入要删除的域名: " nd; [[ -n "$nd" ]] && wl_remove "$nd" ;;
             r)
                 echo ""; colorEcho "$RED" "即将删除所有白名单条目，之后不限制流量。"; cat /usr/local/etc/xray/TOS.txt 2>/dev/null
                 echo ""; read -r -p "输入 YES 确认，其他任意键取消: " confirm
                 [[ "$confirm" == "YES" ]] && wl_clear || colorEcho "$YELLOW" "已取消" ;;
-            s) read -r -p "恢复为出厂默认白名单（6个平台），确认？(y/n) " confirm; [[ "$confirm" =~ ^[yY]$ ]] && wl_reset ;;
+            s) read -r -p "恢复为出厂默认白名单（$(wc -w <<< "$DEFAULT_DOMAINS") 个根域名），确认？(y/n) " confirm; [[ "$confirm" =~ ^[yY]$ ]] && wl_reset ;;
             0) return 0 ;;
             *) colorEcho "$RED" "无效选项" ;;
         esac
@@ -1495,6 +1513,9 @@ H
     *)         show_menu ;;
 esac
 MGRSCRIPT
+    # 出厂白名单只在脚本顶上定义一次，这里填进管理命令
+    sed -i "s|^DEFAULT_DOMAINS=\"__DEFAULT_DOMAINS__\"|DEFAULT_DOMAINS=\"${DEFAULT_DOMAINS}\"|" /usr/local/bin/ai-xray
+    grep -q '^DEFAULT_DOMAINS="google.com ' /usr/local/bin/ai-xray || { say "$RED" "✗ 管理命令里的默认白名单没写进去"; exit 1; }
     chmod +x /usr/local/bin/ai-xray
     say "$GREEN" "✓ 管理命令已安装: ai-xray"
 }

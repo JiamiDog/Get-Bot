@@ -2,7 +2,7 @@
 
 跨境电商 & AI 生产力加速器
 
-为跨境从业者解决海外平台访问慢、不稳定的问题。出厂预置 Google Ads、Meta、TikTok、Pinterest 等业务平台白名单，一行命令部署，开箱即用。
+为跨境从业者解决海外平台访问慢、不稳定的问题。出厂预置 383 个跨境出海必备根域名的白名单（谷歌与 YouTube、Meta、TikTok、X、亚马逊、eBay、Shopify、PayPal 等），一行命令部署，开箱即用。
 
 ## 解决什么问题
 
@@ -25,7 +25,7 @@ bash <(curl -fsSL https://raw.githubusercontent.com/JiamiDog/Get-Bot/main/instal
 装机时贴一把你自己的 DeepSeek 钥匙（[platform.deepseek.com](https://platform.deepseek.com) 注册，充 10 块，复制 API key），服务器上就多一个助手。以后 ssh 上来输 `ai-xray chat`，用人话说：
 
 - 「手机连不上了，帮我看看」→ 它跑体检、修、再确认，告诉你结果
-- 「把 shopify.com 加进白名单」
+- 「把 example.com 加进白名单」
 - 「把连接信息发我」
 - 「证书还剩几天」
 
@@ -37,18 +37,30 @@ bash <(curl -fsSL https://raw.githubusercontent.com/JiamiDog/Get-Bot/main/instal
 
 ## 默认业务白名单
 
-安装完成后，仅以下业务平台可通过加速通道访问：
+安装完成后，白名单内的 383 个根域名（含全部子域名）走加速通道，其余流量不走。按类别：
 
-| 平台 | 域名 | 业务场景 |
-|------|------|----------|
-| Google | google.com | Ads投放、Analytics分析、Search Console、Merchant Center |
-| Meta | facebook.com | Business Suite、广告投放、主页管理 |
-| TikTok | tiktok.com | Ads Manager、店铺管理、素材投放 |
-| X (Twitter) | x.com | 广告投放、社媒运营 |
-| Pinterest | pinterest.com | 广告投放、选品调研 |
-| OpenAI | openai.com | ChatGPT |
+| 类别 | 个数 | 例子 |
+|------|------|------|
+| 谷歌与 YouTube | 29 | google.com、gstatic.com、googleapis.com、googleusercontent.com… |
+| 微软与必应 | 22 | microsoft.com、bing.com、bing.net、live.com… |
+| 苹果 | 6 | apple.com、icloud.com、mzstatic.com、cdn-apple.com… |
+| Meta 全家 | 12 | facebook.com、fb.com、fbcdn.net、facebook.net… |
+| TikTok 与字节 | 11 | tiktok.com、tiktokv.com、tiktokcdn.com、tiktokcdn-us.com… |
+| X | 4 | x.com、twitter.com、twimg.com、t.co |
+| 其他社媒与社区 | 36 | linkedin.com、licdn.com、pinterest.com、pinimg.com… |
+| 亚马逊 | 31 | amazon.com、amazon.ca、amazon.com.mx、amazon.co.uk… |
+| 其他电商平台 | 48 | ebay.com、ebay.co.uk、ebay.de、ebay.com.au… |
+| 独立站与建站 | 42 | shopify.com、myshopify.com、shopifycdn.com、shopifysvc.com… |
+| 收款与支付 | 16 | paypal.com、paypalobjects.com、stripe.com、stripe.network… |
+| 广告、联盟与分析 | 22 | criteo.com、taboola.com、outbrain.com、appsflyer.com… |
+| 营销、客服与评价 | 22 | mailchimp.com、klaviyo.com、sendgrid.com、hubspot.com… |
+| 物流与履约 | 11 | dhl.com、fedex.com、ups.com、usps.com… |
+| 办公与协作 | 21 | notion.so、notion.site、slack.com、slack-edge.com… |
+| AI 工具 | 15 | openai.com、chatgpt.com、oaistatic.com、oaiusercontent.com… |
+| 资讯、参考与接单 | 22 | wikipedia.org、wikimedia.org、stackoverflow.com、stackexchange.com… |
+| CDN 与基础设施 | 13 | cloudfront.net、akamaihd.net、akamaized.net、akamai.net… |
 
-白名单含各平台及其 CDN/接口域名。白名单外的流量不经过加速通道，可通过管理菜单添加其他业务平台。
+全部域名在 `install.sh` 顶上的 `DEFAULT_DOMAINS`，装好以后 `ai-xray whitelist list` 也能看。要加别的站：`ai-xray whitelist add 域名`（或跟助手说一句）；`ai-xray whitelist reset` 恢复出厂这份。
 
 ## 特性
 
